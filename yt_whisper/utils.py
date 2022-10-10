@@ -1,4 +1,4 @@
-from typing import Iterator, TextIO
+from typing import Dict, Iterator, TextIO
 
 
 def str2bool(string):
@@ -50,8 +50,8 @@ def process_segment(segment: dict, line_length: int = 0):
     
     return segment
 
-def write_vtt(transcript: Iterator[dict], file: TextIO, line_length: int = 0):
-    print("WEBVTT\n", file=file)
+def write_vtt(transcript: Iterator[dict], file: TextIO, line_length: int = 0, vidURL: Dict = {}):
+    print(f"NOTE {list(vidURL.keys())[0]}\n" "WEBVTT\n", file=file)
     for segment in transcript:
         segment = process_segment(segment, line_length=line_length)
 

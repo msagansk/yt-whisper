@@ -3,7 +3,7 @@ import whisper
 from whisper.tokenizer import LANGUAGES, TO_LANGUAGE_CODE
 import argparse
 import warnings
-import youtube_dl
+import yt_dlp as youtube_dl
 from .utils import slugify, str2bool, write_srt, write_vtt, youtube_dl_log
 import tempfile
 
@@ -52,7 +52,7 @@ def main():
         if (subtitles_format == 'vtt'):
             vtt_path = os.path.join(output_dir, f"{slugify(title)}.vtt")
             with open(vtt_path, 'w', encoding="utf-8") as vtt:
-                write_vtt(result["segments"], file=vtt, line_length=break_lines)
+                write_vtt(result["segments"], file=vtt, line_length=break_lines, vidURL=audios )
 
             print("Saved VTT to", os.path.abspath(vtt_path))
         else:
