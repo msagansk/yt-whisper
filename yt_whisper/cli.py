@@ -41,7 +41,8 @@ def main():
         args["language"] = "en"
 
     model = whisper.load_model(model_name)
-    audios = get_audio(args.pop("video"))
+    url = args.pop("video")
+    audios = get_audio(url)
     break_lines = args.pop("break_lines")
 
     for title, audio_path in audios.items():
@@ -52,7 +53,7 @@ def main():
         if (subtitles_format == 'vtt'):
             vtt_path = os.path.join(output_dir, f"{slugify(title)}.vtt")
             with open(vtt_path, 'w', encoding="utf-8") as vtt:
-                write_vtt(result["segments"], file=vtt, line_length=break_lines, vidURL=audios )
+                write_vtt(result["segments"], file=vtt, line_length=break_lines, vidURL=url, vidTitle=title )
 
             print("Saved VTT to", os.path.abspath(vtt_path))
         else:
